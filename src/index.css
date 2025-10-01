@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Jeton-Inspired Design System - Clean, Bold, Medical Professional */
+
+@layer base {
+  :root {
+    /* Clean Light Background */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 15%;
+
+    /* Card System - Clean White Cards */
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    /* Primary - Professional Medical Blue */
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 210 100% 45%;
+    --primary-light: 210 100% 60%;
+
+    /* Secondary - Medical Teal Accent */
+    --secondary: 180 85% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-hover: 180 85% 40%;
+    --secondary-dark: 180 85% 35%;
+
+    /* Clean Neutrals */
+    --muted: 220 10% 96%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 220 10% 95%;
+    --accent-foreground: 220 15% 20%;
+
+    /* Alert Colors */
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --warning: 45 90% 55%;
+    --warning-foreground: 45 90% 15%;
+
+    /* Interface Elements */
+    --border: 220 10% 90%;
+    --input: 220 10% 96%;
+    --ring: 210 100% 50%;
+
+    
+    /* Clean, Bold Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(180 85% 45%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-light)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-dark)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--background)), hsl(220 10% 98%));
+    --gradient-subtle: linear-gradient(135deg, hsl(var(--primary) / 0.05), hsl(var(--secondary) / 0.05));
+    
+    /* Clean, Professional Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 15% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 15% 15% / 0.1), 0 2px 4px -1px hsl(220 15% 15% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(220 15% 15% / 0.1), 0 4px 6px -2px hsl(220 15% 15% / 0.05);
+    --shadow-xl: 0 20px 25px -5px hsl(220 15% 15% / 0.1), 0 10px 10px -5px hsl(220 15% 15% / 0.04);
+    --shadow-glow: 0 0 0 1px hsl(var(--primary) / 0.1), 0 4px 16px -4px hsl(var(--primary) / 0.2);
+    
+    /* Smooth Transitions */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Enhanced dark mode - even deeper luxury */
+    --background: 220 30% 5%;
+    --foreground: 210 25% 98%;
+
+    --card: 220 30% 8%;
+    --card-foreground: 210 25% 98%;
+
+    --popover: 220 30% 8%;
+    --popover-foreground: 210 25% 98%;
+
+    --primary: 220 40% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 180 70% 75%;
+    --secondary-foreground: 220 30% 5%;
+
+    --muted: 220 25% 12%;
+    --muted-foreground: 220 20% 65%;
+
+    --accent: 220 25% 18%;
+    --accent-foreground: 210 25% 90%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 20%;
+    --input: 220 30% 12%;
+    --ring: 180 70% 75%;
+    
+    --sidebar-background: 220 30% 6%;
+    --sidebar-foreground: 210 25% 95%;
+    --sidebar-primary: 180 65% 70%;
+    --sidebar-primary-foreground: 220 30% 5%;
+    --sidebar-accent: 220 25% 15%;
+    --sidebar-accent-foreground: 210 25% 90%;
+    --sidebar-border: 220 25% 18%;
+    --sidebar-ring: 180 70% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-normal;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  
+  /* Clean UI Utilities */
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-surface {
+    background: var(--gradient-surface);
+  }
+  
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+  
+  /* Clean shadows */
+  .shadow-sm { box-shadow: var(--shadow-sm); }
+  .shadow-md { box-shadow: var(--shadow-md); }
+  .shadow-lg { box-shadow: var(--shadow-lg); }
+  .shadow-xl { box-shadow: var(--shadow-xl); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+}
+
+@layer components {
+  /* Clean Button Variants - Jeton Style */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary-hover shadow-md hover:shadow-lg transition-smooth font-semibold px-8 py-4 rounded-2xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary-hover shadow-md hover:shadow-lg transition-smooth font-semibold px-8 py-4 rounded-2xl;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary bg-background hover:bg-primary hover:text-primary-foreground shadow-sm hover:shadow-md transition-smooth font-semibold px-8 py-4 rounded-2xl;
+  }
+  
+  .btn-ghost {
+    @apply text-primary hover:bg-accent hover:text-accent-foreground transition-smooth font-medium px-6 py-3 rounded-xl;
+  }
+  
+  /* Clean Cards - Jeton Style */
+  .card-clean {
+    @apply bg-card shadow-md hover:shadow-lg border border-border rounded-3xl transition-smooth;
+  }
+  
+  .card-feature {
+    @apply bg-card shadow-lg hover:shadow-xl border border-border rounded-3xl p-8 transition-smooth hover:-translate-y-1;
+  }
+  
+  /* Animation Utilities */
+  .animate-in {
+    @apply animate-fade-in;
+  }
+  
+  .animate-out {
+    @apply animate-fade-out;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-glow;
+  }
+  
+  /* Loading States */
+  .skeleton {
+    @apply bg-muted animate-pulse-soft rounded-md;
+  }
+  
+  .shimmer {
+    @apply relative overflow-hidden bg-muted;
+  }
+  
+  .shimmer::before {
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-shimmer;
+    content: '';
+  }
+  
+  /* Interactive Elements */
+  .interactive-card {
+    @apply card-clean hover-lift cursor-pointer active:scale-98;
+  }
+  
+  .button-bounce {
+    @apply transition-all duration-150 hover:scale-105 active:scale-95;
+  }
+  
+  .success-pulse {
+    @apply animate-pulse-soft text-green-600;
+  }
+  
+  .error-wiggle {
+    @apply animate-wiggle text-destructive;
+  }
+  
+  /* Stagger Animations for Lists */
+  .stagger-children > *:nth-child(1) { @apply animate-stagger-1; }
+  .stagger-children > *:nth-child(2) { @apply animate-stagger-2; }
+  .stagger-children > *:nth-child(3) { @apply animate-stagger-3; }
+  .stagger-children > *:nth-child(4) { @apply animate-stagger-4; }
+  .stagger-children > *:nth-child(n+5) { @apply animate-fade-in; }
+  
+  /* Focus States with Animation */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
+  }
+  
+  /* Page Transition Wrapper */
+  .page-enter {
+    @apply animate-slide-up;
+  }
+  
+  .page-exit {
+    @apply animate-fade-out;
+  }
+}

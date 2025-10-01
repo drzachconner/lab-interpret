@@ -1,0 +1,227 @@
+{
+  "providers": [
+    "Quest Diagnostics",
+    "Access Labcorp Draw",
+    "Access Medical Labs", 
+    "Precision Analytical (DUTCH)",
+    "Diagnostic Solutions Laboratory",
+    "Mosaic Diagnostics",
+    "Vibrant Wellness", 
+    "ZRT Laboratory",
+    "Doctor's Data",
+    "Genova Diagnostics",
+    "3X4 Genetics",
+    "Cyrex Laboratories",
+    "Great Plains Laboratory"
+  ],
+  "panels": [
+    {
+      "id": "fs-basic-metabolic-panel",
+      "name": "Basic Metabolic Panel",
+      "display_name": "Basic Metabolic Panel",
+      "aliases": ["Basic Metabolic Panel", "BMP"],
+      "category": "Laboratory Tests",
+      "subcategory": "Chemistry",
+      "specimen": "Serum",
+      "fasting_required": true,
+      "turnaround_days": "1-2 business days",
+      "biomarkers": ["Glucose", "BUN", "Creatinine", "Sodium", "Potassium", "Chloride", "CO2"],
+      "clinical_significance": "Basic metabolic assessment including kidney function and electrolytes",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 8.63, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 6.53, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 2.31, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-comprehensive-metabolic-panel",
+      "name": "Comprehensive Metabolic Panel", 
+      "display_name": "Comprehensive Metabolic Panel",
+      "aliases": ["Comprehensive Metabolic Panel", "CMP"],
+      "category": "Laboratory Tests",
+      "subcategory": "Chemistry",
+      "specimen": "Serum",
+      "fasting_required": true,
+      "turnaround_days": "1-2 business days", 
+      "biomarkers": ["Glucose", "BUN", "Creatinine", "Sodium", "Potassium", "Chloride", "CO2", "Total Protein", "Albumin", "AST", "ALT", "Bilirubin", "ALP"],
+      "clinical_significance": "Comprehensive metabolic assessment including liver and kidney function",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 10.78, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 8.45, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 3.65, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-cbc-with-differential",
+      "name": "CBC with Differential and Platelets",
+      "display_name": "CBC with Differential and Platelets",
+      "aliases": ["CBC", "Complete Blood Count", "CBC with Diff"],
+      "category": "Laboratory Tests",
+      "subcategory": "Hematology",
+      "specimen": "Whole Blood",
+      "fasting_required": false,
+      "turnaround_days": "1 business day",
+      "biomarkers": ["WBC", "RBC", "Hemoglobin", "Hematocrit", "Platelets", "Neutrophils", "Lymphocytes", "Monocytes", "Eosinophils", "Basophils"],
+      "clinical_significance": "Complete blood count with white blood cell differential",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 3.89, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 3.73, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 3.47, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-lipid-panel",
+      "name": "Lipid Panel",
+      "display_name": "Lipid Panel", 
+      "aliases": ["Lipid Panel", "Cholesterol Panel"],
+      "category": "Laboratory Tests",
+      "subcategory": "Cardiology",
+      "specimen": "Serum",
+      "fasting_required": true,
+      "turnaround_days": "1-2 business days",
+      "biomarkers": ["Total Cholesterol", "HDL Cholesterol", "LDL Cholesterol", "Triglycerides"],
+      "clinical_significance": "Cardiovascular risk assessment through lipid evaluation", 
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 7.72, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 5.35, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 10.11, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-thyroid-stimulating-hormone",
+      "name": "Thyroid Stimulating Hormone (TSH)",
+      "display_name": "Thyroid Stimulating Hormone (TSH)",
+      "aliases": ["TSH", "Thyroid Stimulating Hormone"],
+      "category": "Laboratory Tests", 
+      "subcategory": "Endocrinology",
+      "specimen": "Serum",
+      "fasting_required": false,
+      "turnaround_days": "1-2 business days",
+      "biomarkers": ["TSH"],
+      "clinical_significance": "Primary screening test for thyroid dysfunction",
+      "lab_provider": "Access Labcorp Draw",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Access Labcorp Draw", "price": 8.56, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Quest Diagnostics", "price": 9.72, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 5.79, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-hemoglobin-a1c",
+      "name": "Hemoglobin A1c",
+      "display_name": "Hemoglobin A1c",
+      "aliases": ["HbA1c", "Glycated Hemoglobin"], 
+      "category": "Laboratory Tests",
+      "subcategory": "Diabetes",
+      "specimen": "Whole Blood",
+      "fasting_required": false,
+      "turnaround_days": "1-2 business days",
+      "biomarkers": ["Hemoglobin A1c"],
+      "clinical_significance": "Long-term glucose control assessment for diabetes management",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 6.58, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 5.35, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 5.79, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-vitamin-d-25-hydroxy",
+      "name": "Vitamin D, 25-Hydroxy",
+      "display_name": "Vitamin D, 25-Hydroxy",
+      "aliases": ["Vitamin D", "25-OH Vitamin D", "Vitamin D3"],
+      "category": "Laboratory Tests", 
+      "subcategory": "Vitamins & Minerals",
+      "specimen": "Serum",
+      "fasting_required": false,
+      "turnaround_days": "1-3 business days",
+      "biomarkers": ["25-Hydroxyvitamin D"],
+      "clinical_significance": "Assessment of vitamin D status and bone health",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 30.56, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 32.10, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 28.91, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-vitamin-b12",
+      "name": "Vitamin B12 (Cobalamin)",
+      "display_name": "Vitamin B12 (Cobalamin)", 
+      "aliases": ["B12", "Cobalamin", "Vitamin B12"],
+      "category": "Laboratory Tests",
+      "subcategory": "Vitamins & Minerals",
+      "specimen": "Serum",
+      "fasting_required": false,
+      "turnaround_days": "1-3 business days",
+      "biomarkers": ["Vitamin B12"],
+      "clinical_significance": "Assessment of B12 deficiency and pernicious anemia",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 5.56, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 14.45, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 5.79, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-ferritin",
+      "name": "Ferritin",
+      "display_name": "Ferritin",
+      "aliases": ["Ferritin", "Iron Storage"],
+      "category": "Laboratory Tests",
+      "subcategory": "Hematology",
+      "specimen": "Serum", 
+      "fasting_required": false,
+      "turnaround_days": "1-2 business days",
+      "biomarkers": ["Ferritin"],
+      "clinical_significance": "Assessment of iron stores and iron deficiency anemia",
+      "lab_provider": "Quest Diagnostics",
+      "popular": true,
+      "notes": "Available from multiple providers",
+      "providers": [
+        {"name": "Quest Diagnostics", "price": 5.68, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Labcorp Draw", "price": 12.84, "phlebotomy_required": true, "handling_fee": false, "notes": ""},
+        {"name": "Access Medical Labs", "price": 5.79, "phlebotomy_required": true, "handling_fee": true, "notes": "Handling fee may apply"}
+      ]
+    },
+    {
+      "id": "fs-dutch-plus",
+      "name": "DUTCH Plus",
+      "display_name": "DUTCH Plus",
+      "aliases": ["DUTCH Plus", "Dried Urine Test for Comprehensive Hormones"],
+      "category": "Laboratory Tests",
+      "subcategory": "Hormones",
+      "specimen": "Urine", 
+      "fasting_required": false,
+      "turnaround_days": "7-10 business days",
+      "biomarkers": ["Estrogens", "Progesterone", "Testosterone", "DHEA", "Cortisol", "Melatonin"],
+      "clinical_significance": "Comprehensive hormone assessment with metabolites",
+      "lab_provider": "Precision Analytical (DUTCH)",
+      "popular": true,
+      "notes": "Comprehensive dried urine hormone testing",
+      "providers": [
+        {"name": "Precision Analytical (DUTCH)", "price": 400.00, "phlebotomy_required": false, "handling_fee": false, "notes": ""}
+      ]
+    }
+  ]
+}

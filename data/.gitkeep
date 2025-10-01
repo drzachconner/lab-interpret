@@ -1,0 +1,2 @@
+# This file ensures the data/ directory exists in git
+# Place your fullscript_lab_catalog_text.txt file here (it will be ignored by git)

@@ -1,0 +1,284 @@
+openapi: 3.1.0
+info:
+  title: BiohackLabs.ai API
+  version: 1.0.0
+  description: >
+    Public REST API for BiohackLabs.ai Phase-1 (de-identified AI analysis).
+    - JWT (Supabase) protects user endpoints.
+    - Webhook endpoint for Fullscript (service role handles DB writes).
+    - No PHI ever leaves the system to the LLM.
+
+servers:
+  - url: https://api.biohacklabs.ai
+    description: Production
+  - url: http://localhost:3000
+    description: Local dev
+
+tags:
+  - name: Auth & Profiles
+  - name: Lab Orders
+  - name: Interpretations
+  - name: Webhooks
+  - name: Ops
+
+components:
+  securitySchemes:
+    supabaseAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase user JWT from client session.
+    webhookSig:
+      type: apiKey
+      in: header
+      name: x-fullscript-signature
+      description: HMAC signature sent by Fullscript (verify server-side).
+
+  schemas:
+    Sex:
+      type: string
+      enum: [Male, Female, Other, Unknown]
+    OrderStatus:
+      type: string
+      enum: [created, authorized, collected, resulted, failed]
+    Profile:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        auth_id: { type: string, format: uuid }
+        sex: { $ref: '#/components/schemas/Sex' }
+        age_bucket: { type: string, nullable: true, example: "35-44" }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+      required: [id, auth_id, sex, created_at, updated_at]
+    ProfileCreate:
+      type: object
+      properties:
+        auth_id: { type: string, format: uuid }
+        sex: { $ref: '#/components/schemas/Sex' }
+        age_bucket: { type: string, example: "35-44" }
+      required: [auth_id]
+    LabOrder:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        user_id: { type: string, format: uuid }
+        panel: { type: string, example: "CBC" }
+        status: { $ref: '#/components/schemas/OrderStatus' }
+        fs_order_id: { type: string, nullable: true }
+        raw_result: { type: object, nullable: true, description: "Parsed result JSON (de-identified). In Phase-1, avoid storing PHI here." }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+      required: [id, user_id, panel, status, created_at, updated_at]
+    LabOrderCreate:
+      type: object
+      properties:
+        user_id: { type: string, format: uuid }
+        panel: { type: string }
+        status: { $ref: '#/components/schemas/OrderStatus', default: created }
+        fs_order_id: { type: string, nullable: true }
+      required: [user_id, panel]
+    Interpretation:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        user_id: { type: string, format: uuid }
+        lab_order_id: { type: string, format: uuid }
+        analysis:
+          type: object
+          description: JSON output of LLM (no PHI). Includes keys: flags, insights, supplements, lifestyle, follow_up_labs.
+        created_at: { type: string, format: date-time }
+      required: [id, user_id, lab_order_id, analysis, created_at]
+
+    # Safe payload to LLM (NO PHI)
+    DeidentifiedPayload:
+      type: object
+      properties:
+        patient_id: { type: string, example: "pt_7a4d9f" }
+        age_bucket: { type: string, example: "35-44" }
+        sex: { $ref: '#/components/schemas/Sex' }
+        labs:
+          type: array
+          items:
+            type: object
+            properties:
+              test: { type: string, example: "Glucose" }
+              value: { type: number, example: 102 }
+              unit: { type: string, example: "mg/dL" }
+              ref: { type: string, example: "70-100" }
+            required: [test, value]
+        context:
+          type: object
+          additionalProperties: true
+      required: [patient_id, age_bucket, sex, labs]
+
+paths:
+  /me/profile:
+    get:
+      tags: [Auth & Profiles]
+      security: [{ supabaseAuth: [] }]
+      summary: Get my profile
+      responses:
+        '200':
+          description: Current user's profile or null if not created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Profile'
+                  - type: 'null'
+    post:
+      tags: [Auth & Profiles]
+      security: [{ supabaseAuth: [] }]
+      summary: Create my profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProfileCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Profile' }
+
+  /orders:
+    get:
+      tags: [Lab Orders]
+      security: [{ supabaseAuth: [] }]
+      summary: List my lab orders
+      responses:
+        '200':
+          description: Orders for the current user
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/LabOrder' }
+    post:
+      tags: [Lab Orders]
+      security: [{ supabaseAuth: [] }]
+      summary: Create a lab order (UI initiated)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/LabOrderCreate' }
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LabOrder' }
+
+  /orders/{orderId}:
+    patch:
+      tags: [Lab Orders]
+      security: [{ supabaseAuth: [] }]
+      summary: Update my order status
+      parameters:
+        - in: path
+          name: orderId
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status: { $ref: '#/components/schemas/OrderStatus' }
+              required: [status]
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LabOrder' }
+
+  /interpretations:
+    get:
+      tags: [Interpretations]
+      security: [{ supabaseAuth: [] }]
+      summary: List my interpretations
+      responses:
+        '200':
+          description: Interpretations for the current user
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Interpretation' }
+
+  /interpretations/{id}:
+    get:
+      tags: [Interpretations]
+      security: [{ supabaseAuth: [] }]
+      summary: Get one interpretation
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: One interpretation
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Interpretation' }
+
+  /analyze:
+    post:
+      tags: [Ops]
+      security: [{ supabaseAuth: [] }]
+      summary: Run de-ID + analysis for an existing order (manual trigger)
+      description: >
+        Server receives raw (internal) order result, runs de-identification, calls LLM with a **DeidentifiedPayload**, and stores result.
+        Client must never send PHI here; upload raw result is a server task or webhook.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lab_order_id: { type: string, format: uuid }
+              required: [lab_order_id]
+      responses:
+        '200':
+          description: Analysis stored
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  interpretation_id: { type: string, format: uuid }
+                  status: { type: string, example: "ok" }
+
+  /webhooks/fullscript:
+    post:
+      tags: [Webhooks]
+      security: [{ webhookSig: [] }]
+      summary: Fullscript webhook (order/events)
+      description: >
+        Receives Fullscript events (order.created, result.ready, etc.).  
+        Uses service role to write DB, de-identify if results present, call LLM, store interpretation, and notify the user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { ok: { type: boolean } }
+        '202':
+          description: Accepted but deferred (e.g., missing profile mapping)

@@ -1,0 +1,40 @@
+project_id = "zhdjvfylxgtiphldjtqf"
+
+[functions.profile-api]
+verify_jwt = true
+
+[functions.orders-api]
+verify_jwt = true
+
+[functions.interpretations-api]
+verify_jwt = true
+
+[functions.analyze-order]
+verify_jwt = true
+
+[functions.analyze-lab-report]
+verify_jwt = true
+
+[functions.analyze-lab-report-ai]
+verify_jwt = true
+
+[functions.create-lab-order]
+verify_jwt = true
+
+[functions.create-fullscript-account]
+verify_jwt = true
+
+[functions.fullscript-auto-login]
+verify_jwt = true
+
+[functions.create-payment]
+verify_jwt = true
+
+[functions.verify-payment]
+verify_jwt = false
+
+[functions.fullscript-webhook]
+verify_jwt = false
+
+[functions.send-branded-email]
+verify_jwt = false

@@ -1,0 +1,79 @@
+# BiohackLabs.ai - Project Overview
+
+## What We're Building
+A lab ordering platform with AI interpretation that integrates with Fullscript's API.
+
+## Core Functionality
+
+### Lab Ordering
+- Sync and display ALL Fullscript labs
+- Smart bundling algorithm (group by lab provider + sample type to minimize draw fees)
+- Shopping cart interface
+- Create Fullscript treatment plan via API
+- Redirect to Fullscript for checkout
+- Fullscript handles: pricing, discounts, payment, fulfillment, commission
+
+### Lab Interpretation Service
+- $19 fee for AI interpretation (our only direct payment)
+- Pricing structure:
+  - Upload existing labs: $19 for interpretation
+  - Order new labs: Optional $19 add-on for interpretation
+  - One $19 fee covers ALL labs in a session (multiple panels/uploads)
+- We process payment for interpretation only (Stripe)
+- Generate comprehensive biohacking-focused analysis
+- Use functional/optimal ranges, not just standard ranges
+- Include supplement protocol with Fullscript links
+
+### Supplement Display
+- Link to Fullscript dispensary for full catalog
+- API pull popular products for showcase
+- No inventory, no direct sales - all through Fullscript
+
+### Automation Flow
+1. Labs ordered → Fullscript handles payment/fulfillment
+2. Results ready → Webhook triggers our AI interpretation
+3. Email with dashboard link
+4. Interactive dashboard with recommendations
+5. Follow-up emails for retesting reminders
+
+## Current State
+- Recently migrated from Lovable.ai (remove unnecessary code)
+- Supabase backend configured
+- MCP connection established
+- Need: Fullscript API integration
+- Open to UI/UX improvements
+
+## Technical Stack (Open to Improvements)
+- Frontend: React, TypeScript, Tailwind, shadcn/ui
+- Backend: Supabase (PostgreSQL + Edge Functions)
+- Integrations: Fullscript API, OpenAI, Resend, Stripe (interpretation only)
+- Deployment: Vercel
+
+## What to Ignore/Remove
+- Direct lab payment processing (Fullscript handles)
+- Supplement inventory management
+- Complex pricing logic (comes from Fullscript)
+- Overly complex features from Lovable era
+
+## Immediate Tasks
+1. Sync Fullscript lab catalog
+2. Build smart bundling algorithm
+3. Create lab browsing UI
+4. Setup Stripe for $19 interpretation fee
+5. Clean up unnecessary code
+
+## Key Mental Model
+We build: UI/UX, lab browsing, smart bundling, AI interpretation
+We handle payment for: $19 interpretation fee only
+Fullscript handles: All lab payments, supplement sales, pricing, discounts, fulfillment
+We receive: Commission from Fullscript (they handle this entirely)
+
+## Additional Context
+- Focus on functional medicine and biohacking approach
+- Use leading edge functional ranges, not just standard lab ranges
+- Emphasize holistic health awareness
+- Create highly interactive AI interpretations
+- Include diet, lifestyle, and supplement recommendations
+- Provide direct Fullscript links for all supplement suggestions
+- Email automation for lab reminders and supplement refills
+- Dashboard for users to view their lab interpretations and recommendations
