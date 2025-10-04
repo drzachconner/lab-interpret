@@ -29,15 +29,49 @@ serve(async (req) => {
 
     if (orderError) throw orderError
 
-    // If labContent not provided, fetch from storage
+    // If labContent not provided, parse PDF from storage
     let labData = labContent
     if (!labContent && order.lab_file_url) {
-      const { data: fileData, error: fileError } = await supabase.storage
-        .from('lab-results')
-        .download(order.lab_file_url)
-      
-      if (fileError) throw fileError
-      labData = await fileData.text()
+      console.log('[Analyze Labs] Parsing PDF from storage:', order.lab_file_url)
+
+      // Call our PDF parser function
+      const parseResponse = await fetch(`${supabaseUrl}/functions/v1/parse-lab-pdf`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${supabaseKey}`,
+        },
+        body: JSON.stringify({
+          fileUrl: order.lab_file_url,
+          storageBucket: 'lab-results',
+          orderId: orderId,
+        })
+      })
+
+      if (!parseResponse.ok) {
+        const errorText = await parseResponse.text()
+        throw new Error(`PDF parsing failed: ${errorText}`)
+      }
+
+      const parsedData = await parseResponse.json()
+
+      if (!parsedData.success) {
+        throw new Error(`PDF parsing failed: ${parsedData.error}`)
+      }
+
+      console.log('[Analyze Labs] PDF parsed successfully:', {
+        provider: parsedData.provider.name,
+        totalMarkers: parsedData.metadata.totalMarkers,
+        sections: parsedData.sections.length,
+      })
+
+      // Convert structured data to format for AI
+      labData = JSON.stringify({
+        provider: parsedData.provider,
+        patient: parsedData.patient,
+        sections: parsedData.sections,
+        metadata: parsedData.metadata,
+      })
     }
 
     // Choose AI provider based on environment variable
